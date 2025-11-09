@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TATA Capital - AI Loan Demo</title>
+  
+  <link rel="icon" type="image/jpg" href="./asset/tata_logo.jpg">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibjNQVbXlJmM7DQRifcHqLVUpUiNF8cA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qH/TL64iVLDEs3SIsAoyU8J1BwhHiNweO/A0LsqqGKEeSYOobzH/EchReL4L+KWMOsoG/MpbpmK/gTDEsBGZWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+<body>
+
+  <div id="chat-container">
+    <div id="chat-header">
+      <div class="logo"></div>
+      TATA Capital AI Assistant
+    </div>
+    <div id="chat-window">
+      </div>
+    <div id="quick-actions">
+      <button class="quick-btn" id="btn-check-offer" disabled>🎁 My Pre-Approved Offer</button>
+      <button class="quick-btn" id="btn-check-score" disabled>📊 Check My Credit Score</button>
+      <button class="quick-btn" id="btn-apply-loan" disabled>💸 Apply for a Loan</button>
+    </div>
+    <div id="chat-input-area">
+      <div id="typing-indicator" class="hidden">Bot is typing...</div>
+      
+      <div class="input-container">
+        <input type="text" id="chat-input" placeholder="Type your message here..." />
+        <button id="send-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="loan-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>🚀 Fast-Track Loan Application</h3>
+        <p>You're just a few steps away from your funds.</p>
+      </div>
+      <form id="loan-form">
+        <label for="loan-amount">Loan Amount (INR):</label>
+        <input type="number" id="loan-amount" placeholder="e.g., 100000" required>
+        
+        <label for="loan-tenure">Loan Tenure (Months):</label>
+        <input type="number" id="loan-tenure" placeholder="e.g., 12" required>
+        
+        <label for="monthly-salary">Your Monthly Salary (INR):</label>
+        <input type="number" id="monthly-salary" placeholder="e.g., 50000" required>
+
+        <label for="file-upload" class="upload-label" id="upload-label-text">Click to Upload Salary Slip (PDF/JPG)</label>
+        <input type="file" id="file-upload" accept=".pdf,.jpg,.png">
+        
+        <button type="submit" id="loan-submit-btn">Check My Eligibility</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="sanction-modal" class="modal-overlay hidden">
+    <div class="modal-content" id="sanction-letter">
+      
+      <div id="letter-content-to-print">
+        <div class="watermark">DRAFT</div>
+        <div class="logo-header">
+          <img src="./asset/tata_logo.jpg" alt="TATA Capital Logo" class="letter-logo">
+          <h2>LOAN SANCTION LETTER</h2>
+        </div>
+        <p><strong>Date:</strong> <span id="sanction-date"></span></p>
+        <p>To,</p>
+        <p><strong id="sanction-name"></strong></p>
+        <p><strong>Ref:</strong> Your Personal Loan Application (ID: <span id="sanction-id"></span>)</p>
+        <hr>
+        <p>We are delighted to inform you that your Personal Loan application has been <strong>provisionally approved</strong>.</p>
+        <p>This approval is based on the details provided by you. Here are your offer details:</p>
+        
+        <table>
+          <tr>
+            <td>Sanctioned Amount</td>
+            <td id="sanction-amount"></td>
+          </tr>
+          <tr>
+            <td>Loan Tenure</td>
+            <td id="sanction-tenure"></td>
+          </tr>
+          <tr>
+            <td>Interest Rate</td>
+            <td><strong>14.0% p.a.</strong> (Fixed)</td>
+          </tr>
+          <tr>
+            <td>Estimated EMI</td>
+            <td id="sanction-emi"></td>
+          </tr>
+        </table>
+        <p class="fine-print">This is a system-generated, non-binding document. The final disbursal is subject to the successful verification of your submitted documents and internal checks.</p>
+      </div>
+      <button id="close-sanction-btn">X</button>
+      <button id="accept-offer-btn">Accept Offer & Proceed</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+/* --- Global & Fonts --- */
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  background: #ffffff;
+  height: 100vh;
+  margin: 0;
+  color: #333;
+}
+
+/* --- Chat Container --- */
+#chat-container {
+  /* This makes the container fill the entire screen */
+  width: 100%;
+  height: 100vh; /* Use 100% of the screen height */
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 0; /* No radius */
+  box-shadow: none;  /* No shadow */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#chat-header {
+  background: linear-gradient(90deg, #0d47a1, #1976d2, #42a5f5);
+  color: white;
+  padding: 16px 20px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  /* Add safe-area padding for mobile (e.g., iPhone notch) */
+  padding-top: calc(16px + env(safe-area-inset-top)); 
+}
+
+/*
+==================================
+THIS IS THE CORRECTED SECTION
+==================================
+*/
+.logo {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Use your local path */
+  background-image: url('./asset/tata_logo.jpg');
+  
+  /* Use 'contain' to ensure the whole logo is visible */
+  background-size: contain; 
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* REMOVED 'border-radius: 50%' which was cutting off the image */
+  /* REMOVED 'content', 'color', 'font-weight' as they are not needed */
+}
+
+
+/* --- Chat Window & Messages --- */
+#chat-window {
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f9f9f9;
+}
+
+.message {
+  padding: 12px 18px;
+  border-radius: 20px;
+  max-width: 85%;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.message.user {
+  background: #1976d2;
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 5px;
+}
+
+.message.bot {
+  background: #ffffff;
+  color: #333;
+  align-self: flex-start;
+  border-bottom-left-radius: 5px;
+  border: 1px solid #e9ecef;
+}
+
+.message.bot strong {
+  color: #0d47a1;
+}
+
+.message.bot-action {
+  background: #e3f2fd;
+  border: 1px solid #1976d2;
+}
+
+.message.bot-error {
+  background: #ffebee;
+  border: 1px solid #e57373;
+  color: #c62828;
+}
+
+/* --- Quick Actions --- */
+#quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 20px;
+  border-top: 1px solid #e9ecef;
+  background: #fdfdfd;
+}
+
+.quick-btn {
+  font-size: 0.8rem;
+  padding: 8px 14px;
+  border: 1px solid #1976d2;
+  background: #f0f7ff;
+  color: #1976d2;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.quick-btn:hover {
+  background: #1976d2;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.quick-btn:disabled {
+  border-color: #ccc;
+  background: #f5f5f5;
+  color: #aaa;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* --- Input Area --- */
+#chat-input-area {
+  padding: 15px 20px;
+  border-top: 1px solid #e9ecef;
+  background: #fff;
+  /* Add safe-area padding for mobile (e.g., iPhone home bar) */
+  padding-bottom: calc(15px + env(safe-area-inset-bottom));
+}
+
+#typing-indicator {
+  font-size: 0.8rem;
+  color: #777;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ced4da;
+  border-radius: 25px; /* Pill shape */
+  padding: 4px 6px 4px 20px; /* Padding for container */
+}
+
+#chat-input {
+  flex: 1; /* Takes up all available space */
+  border: none;
+  outline: none;
+  padding: 10px 0; /* Vertical padding */
+  font-size: 1rem;
+  background: transparent;
+  width: 100%; /* Fix for flex */
+  box-sizing: border-box; /* Reset */
+}
+
+#send-btn {
+  width: 44px; /* Circle width */
+  height: 44px; /* Circle height */
+  border: none;
+  background: #1976d2; /* Blue color */
+  color: white;
+  border-radius: 50%; /* Makes it a circle */
+  padding: 0;
+  margin: 0;
+  margin-left: 8px; /* Space between input and button */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* Prevents button from shrinking */
+  transition: background 0.2s;
+}
+
+#send-btn:hover {
+  background: #0d47a1; /* Darker blue */
+}
+
+#send-btn svg {
+  width: 22px; /* Size of the arrow icon */
+  height: 22px;
+}
+
+
+/* --- Modal Styling --- */
+.hidden { display: none !important; }
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  padding: 2vh 0;
+}
+
+.modal-content {
+  background: white;
+  padding: 0;
+  border-radius: 12px;
+  width: 95%; /* Use 95% width on mobile */
+  max-width: 520px; /* But never get wider than 520px */
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  position: relative;
+  
+  max-height: 90vh; 
+  overflow-y: auto;  
+}
+
+.modal-header {
+  background: #f9f9f9;
+  padding: 20px 30px;
+  border-bottom: 1px solid #e0e0e0;
+}
+.modal-header h3 {
+  margin: 0 0 5px 0;
+  color: #0d47a1;
+}
+.modal-header p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* --- Loan Form --- */
+#loan-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 25px 30px;
+}
+#loan-form label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #555;
+}
+#loan-form input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.upload-label {
+  padding: 15px;
+  background: #f0f7ff;
+  border: 2px dashed #1976d2;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #0d47a1;
+  font-weight: 500;
+}
+#loan-form input[type="file"] {
+  display: none;
+}
+#loan-submit-btn {
+  padding: 14px;
+  background: #28a745;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+#loan-submit-btn:hover {
+  background: #218838;
+}
+
+/* --- Sanction Letter --- */
+#sanction-letter {
+  padding: 0; 
+  position: relative;
+}
+
+#letter-content-to-print {
+  padding: 30px 40px; 
+  background: white; 
+}
+
+.logo-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 2px solid #1976d2;
+  padding-bottom: 15px;
+  margin-bottom: 20px; 
+}
+.letter-logo { 
+  height: 40px; 
+  width: auto;
+  object-fit: contain;
+}
+.logo-header h2 {
+  color: #0d47a1;
+  margin: 0;
+  font-size: 1.8rem;
+}
+#sanction-letter hr {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin: 20px 0;
+}
+#sanction-letter p {
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+#sanction-letter table {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+}
+#sanction-letter td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+#sanction-letter td:first-child {
+  font-weight: 500;
+  background: #f9f9f9;
+  width: 40%;
+}
+#sanction-letter .fine-print {
+  font-size: 0.8rem;
+  color: #777;
+  font-style: italic;
+  margin-top: 20px;
+}
+#close-sanction-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #eee;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1rem;
+  z-index: 1010; 
+}
+#accept-offer-btn {
+  width: calc(100% - 80px); 
+  margin: 20px 40px; 
+  padding: 14px;
+  background: #ff9800;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+#accept-offer-btn:hover {
+  background: #f57c00;
+}
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  font-size: 100px;
+  color: rgba(0, 0, 0, 0.04);
+  font-weight: bold;
+  z-index: -1;
+  pointer-events: none;
+}
+
+
+/* --- IN-CHAT SLIDER WIDGET --- */
+.slider-widget {
+  background: #e3f2fd;
+  border: 1px solid #1976d2;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 10px;
+  align-self: stretch; 
+  max-width: 100%; 
+  box-shadow: none;
+}
+
+.slider-widget .tenure-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.slider-widget .tenure-tab {
+  flex: 1;
+  padding: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #1976d2;
+  border-radius: 20px;
+  background: #fff;
+  color: #1976d2;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.slider-widget .tenure-tab.active {
+  background: #1976d2;
+  color: white;
+}
+
+.slider-widget input[type="range"] {
+  width: 100%;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.slider-widget .slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #555;
+  padding: 0 5px;
+}
+
+.slider-widget .emi-display {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.slider-widget .emi-display strong {
+  color: #0d47a1;
+  font-size: 1.3rem;
+  vertical-align: middle;
+}
